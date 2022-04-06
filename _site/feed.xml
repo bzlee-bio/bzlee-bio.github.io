@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-06T03:50:45+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">BZLEE-Bio</title><subtitle>Nothing special</subtitle><author><name>Byungjo Lee</name></author><entry><title type="html">논문리뷰 - Learning from Imbalanced Data</title><link href="http://localhost:4000/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/Paper-review/" rel="alternate" type="text/html" title="논문리뷰 - Learning from Imbalanced Data" /><published>2022-04-05T00:00:00+09:00</published><updated>2022-04-05T00:00:00+09:00</updated><id>http://localhost:4000/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/Paper-review</id><content type="html" xml:base="http://localhost:4000/%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0/Paper-review/">&lt;h2 id=&quot;learning-from-imbalanced-data-2009&quot;&gt;Learning from Imbalanced Data (2009)&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-06T21:24:24+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">BZLEE-Bio</title><subtitle>Nothing special</subtitle><author><name>Byungjo Lee</name></author><entry><title type="html">Paper review - Learning from Imbalanced Data</title><link href="http://localhost:4000/paper%20review/Paper-review/" rel="alternate" type="text/html" title="Paper review - Learning from Imbalanced Data" /><published>2022-04-05T00:00:00+09:00</published><updated>2022-04-05T00:00:00+09:00</updated><id>http://localhost:4000/paper%20review/Paper-review</id><content type="html" xml:base="http://localhost:4000/paper%20review/Paper-review/">&lt;h1 id=&quot;learning-from-imbalanced-data-2009&quot;&gt;Learning from Imbalanced Data (2009)&lt;/h1&gt;
 &lt;blockquote&gt;
   &lt;p&gt;해당 포스팅의 이미지는 모두 원 논문 본문에서 발췌하였습니다.
 &lt;a href=&quot;https://ieeexplore.ieee.org/document/5128907&quot;&gt;논문 링크&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h3&gt;
+&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
 
 &lt;p&gt;과학기술의 발전으로 인하여 데이터의 축척이 폭발적으로 증가하고 있으며 knowledge discovery, data engineering 등 다양한 분야의 발전으로 이어지고 있다. 하지만 imbalanced data에 의한 imbalanced learning problem이 있다. 이러한 imbalanced learning problem은 일반적 학습 알고리즘 성능을 저해한다는 문제가 있다. 하지만 real world에서는 데이터의 불균형은 직면할 수 밖에 없는 문제이다. &lt;br /&gt;이 논문은 아래 세 가지의 큰 틀에서 이야기를 하고 있다.&lt;/p&gt;
 
@@ -14,7 +14,11 @@
   &lt;li&gt;imbalance learning 시 모델 성능 평가 방법&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;2-nature-of-the-problem&quot;&gt;2. Nature of the Problem&lt;/h3&gt;
+&lt;h2 id=&quot;2-nature-of-the-problem&quot;&gt;2. Nature of the Problem&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;이번 섹션에서는 Imbalance data에 대한 정의와 추가적인 개념을 함께 설명하고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;p&gt;Imbalanced data는 각 class간의 데이터 수 비율이 100:1, 1,000:1 등과 같이 하나의 class에 비해 다른 class 데이터가 매우 많은 것을 말하고 있다. 이러한 class간 불균형 (between-class imbalance)은 두 개의 class 사이 (binary), 혹은 두개보다 더 많은 class (multiclass)간에 일어날 수 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;두 class 간의 불균형 예시: Mammography Dataset&lt;/strong&gt;&lt;/p&gt;
@@ -54,9 +58,33 @@ C의 경우에는 minority class의 subconcept임과 동시에 데이터 수가 
 
 &lt;p&gt;&lt;strong&gt;Noise sample&lt;/strong&gt;에 의한 문제도 발생할 수 있다. 충분한 데이터를 가지고 있는 majority class에서는 일부 noise sample이 있더라도 noise가 있지 않은 충분한 양의 데이터가 있기 때문에 이러한 문제가 거의 일어나지 않으나, 데이터가 적은 minority class에서는 몇몇의 noise sample에 의해 분류 모델에게 크게 혼동을 주어 class를 분류하기 위한 규칙을 찾는데 있어서 문제가 될 수 있다.&lt;/p&gt;
 
-&lt;h3 id=&quot;3-the-state-of-the-art-solutions-for-imbalanced-learning&quot;&gt;3. The State-of-the-art Solutions for Imbalanced Learning&lt;/h3&gt;
+&lt;h2 id=&quot;3-the-state-of-the-art-solutions-for-imbalanced-learning&quot;&gt;3. The State-of-the-art Solutions for Imbalanced Learning&lt;/h2&gt;
 &lt;ul&gt;
+  &lt;li&gt;이번 섹션에서는 Imbalanced learning에 의한 문제를 극복하기 위한 방법들을 소개하고 있다.&lt;/li&gt;
   &lt;li&gt;논문 제목에 sota solution이라는 제목을 사용하였지만, 논문이 발간된 지는 너무 오래되었기 때문에 그 당시의 sota 모델 예시라고 볼 수 있다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;…작성중&lt;/p&gt;</content><author><name>Byungjo Lee</name></author><category term="논문리뷰" /><category term="Data Imbalance" /><category term="Imbalance Learning" /><summary type="html">Learning from Imbalanced Data (2009) 해당 포스팅의 이미지는 모두 원 논문 본문에서 발췌하였습니다. 논문 링크</summary></entry></feed>
+&lt;h3 id=&quot;31-sampling-methods-for-imbalanced-learning&quot;&gt;3.1 Sampling Methods for Imbalanced Learning&lt;/h3&gt;
+&lt;p&gt;데이터 샘플링을 통하여 데이터 분포를 균일하게 맞추어 주는 방식을 말한다. 많은 경우에 샘플링을 통해 데이터 수의 균형을 맞춘 결과 더 좋은 모델 성능을 보였다고 이야기하고 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;311-random-oversampling-and-undersampling&quot;&gt;3.1.1 Random Oversampling and Undersampling&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;Random oversampling&lt;/em&gt;이란 minority class의 데이터셋 $S_{min}$으로 부터 랜덤하게 데이터를 샘플링하여 $S_{min}$에 데이터를 추가하게 된다. 즉, 샘플되어 추가된 데이터는 중복되어 있는 상태이다. 이러한 방식은 중복된 minority class 데이터로 인하여 분류 모델 학습 시 overfitting이 일어날 수 있다.
+&lt;em&gt;Random unversampling&lt;/em&gt;이란 majority class의 데이터셋 $S_{maj}$으로 부터 랜덤하게 데이터를 제거하는 방식을 말한다. 이러한 방식은 제거된 데이터로부터 얻을 수 있는 중요한 특징을 분류 모델이 얻게되지 못할 수 있다는 문제가 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;312-informed-undersampling&quot;&gt;3.1.2 Informed Undersampling&lt;/h4&gt;
+&lt;p&gt;여기서는 &lt;em&gt;EasyEnsemble&lt;/em&gt;, &lt;em&gt;BalanceCascade&lt;/em&gt;, &lt;em&gt;undersampling using kNN&lt;/em&gt; 세가지 방법을 소개한다. &lt;br /&gt;
+&lt;em&gt;&lt;b&gt;EasyEnsemble&lt;/b&gt;&lt;/em&gt;은 majority class의 데이터를 undersampling 하게 되는데 이때 하나가 아닌 여러개의 undersampled majority class 데이터셋을 만들게 된다. 각각의 undersampled majority class 데이터셋과 하나의 minority class 샘플을 이용하여 여러개의 분류 모델을 이용하여 학습하게 된다. 여기서 undersampled majority class 데이터의 경우 여러개의 서브셋으로 구성되어 있고, 하나의 분류모델을 학습 시 서브셋 중 하나를 활용하게 된다. 이렇게 되면 여러개의 모델은 각각의 undersampled majority class를 통해 구성된 서브셋과 minority class 데이터셋을 모델 학습에 이용하게 되기 떄문에 각기 다른 데이터셋을 이용하여 학습하게 된다. 최종 예측 결과는 여러개의 분류 모델의 예측 결과를 종합하는 앙상블 방식을 이용하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;b&gt;BalanceCascade&lt;/b&gt;&lt;/em&gt;란 majority class $S_{maj}$로부터 undersample 된 데이터셋 $E$와 minority class의 데이터셋 $S_{min}$을 이용하여 분류 모델을 학습하게 된다. 학습된 모델을 이용하여 $E$를 분류하고 모델이 제대로 분류한 샘플을 $N_{maj}^{\ast}$ 라고 한다면 해당 데이터를 표현해 줄 수 있는 데이터는 중복되어 있다고 생각하여 $S_{maj}$로부터 제거하게 된다. 이와 같은 작업을 반복적으로 수행하게 되어 데이터를 스크리닝(?) 하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;b&gt;Undersampling using K-nearest neighbor (KNN)&lt;/b&gt;&lt;/em&gt;은 KNN을 이용하여 undersampling 하는 기법이다. 여기에는 NearMiss-1, NearMiss-2, NearMiss-3 등이 있다. NearMiss-1 의 경우 각각의 majority 샘플에 대해 &lt;b&gt;가장 가까운&lt;/b&gt; 3개의 minority sample 까지의 거리의 평균이 작은 순으로 선택한다. NearMiss-2의 경우 각각의 majority 샘플에 대해 &lt;b&gt;가장 먼&lt;/b&gt; 3개의 minority sample 까지의 거리의 평균이 작은 순으로 선택한다. NearMiss-3의 경우 각 minority 샘플이 가장 가까운 majority sample을 선택한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;313-synthetic-sampling-with-data-generation-smote&quot;&gt;3.1.3 Synthetic Sampling with Data Generation (SMOTE)&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;SMOTE&lt;/em&gt;란 minority class의 새로운 데이터를 존재하는 데이터를 기반으로 만들어내는 방식이다. Minority class의 샘플 중 하나를 선택하고 같은 class 의 샘플 중 가장 가까운 K개의 샘플 중 1개를 선택하게 된다. 이 두 샘플 사이에 새로운 데이터를 추가하는 방식이다. 데이터 추가는 아래와 같이 된다.&lt;/p&gt;
+&lt;center&gt;$x_{new}=x_{i}+({\hat{x}}_{i}-x_i)\times\delta$&lt;/center&gt;
+&lt;p&gt;$x_{new}$: 새로 추가된 데이터, $x_i$: minority class 샘플 데이터, $\hat{x}_{i}$: $x_i$ 샘플에서 가장 가까운 k개의 minority 샘플 중 1개, $\delta$: [0, 1] 중 랜덤 수&lt;/p&gt;
+
+&lt;p&gt;SMOTE를 그림으로 살펴보자.
+&lt;img src=&quot;/imgs/040622_post/fig3.png&quot; alt=&quot;&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림에서 (a)의 경우 minority class(별모양)의 샘플 $x_i$와 그 주위에 가장 가까운 6개의 샘플 이 선으로 연결되어 있는 것을 볼 수 있다. (b)의 경우 6개 중 아래에 있는 $\hat{x}_i$와 $x_i$ 사이에 데이터를 생성하는 예시를 보여주고 있다.&lt;/p&gt;</content><author><name>Byungjo Lee</name></author><category term="Paper review" /><category term="Data Imbalance" /><category term="Imbalance Learning" /><summary type="html">Learning from Imbalanced Data (2009) 해당 포스팅의 이미지는 모두 원 논문 본문에서 발췌하였습니다. 논문 링크</summary></entry></feed>
