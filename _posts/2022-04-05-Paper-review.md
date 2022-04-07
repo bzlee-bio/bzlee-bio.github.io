@@ -92,3 +92,36 @@ SMOTE를 그림으로 살펴보자.
 ![](/imgs/040622_post/fig3.png){: .align-center}
 
 위 그림에서 (a)의 경우 minority class(별모양)의 샘플 $x_i$와 그 주위에 가장 가까운 6개의 샘플 이 선으로 연결되어 있는 것을 볼 수 있다. (b)의 경우 6개 중 아래에 있는 $\hat{x}_i$와 $x_i$ 사이에 데이터를 생성하는 예시를 보여주고 있다.
+
+#### 3.1.4 Adaptive Synthetic Sampling
+앞서 이야기한 SMOTE 알고리즘의 경우 minority 와 majority class간의 경계를 고려하지 않고 데이터를 생성하기 때문에 두 class간 경계를 설정하는 문제에 있어서는 한계가 있을 수 있다고 한다. 이러한 문제에 대응하기 위해 *Borderline-SMOTE*와 *Adaptive Synthetic Sampling (ADA-SYN)*이 제시되었다.   
+
+***Borderline-SMOTE***
+각각의 minority class 샘플로부터 가장 가까운 근처 (앞서부터 계속 nearest neighbors의 개념을 사용중) 샘플 m개 중 majority class 샘플의 개수 $N_{k-maj}$를 계산한다. 계산된 값을 이용하여 아래와 같이 경우를 나누어 알고리즘을 수행한다.
+1. $m/2 \leq N_{k-maj} < m$ 인 경우, "DANGER" 로 분류한다. DANGER로 분류된 샘플들을 이용하여 SMOTE를 수행하게 된다. 
+2. $N_{k-maj} = m$ 인 경우, "NOISE" 로 분류한다. 이러한 경우는 SMOTE를 수행하지 않는다.
+
+아래 그림을 보면 더 확실하게 이해할 수 있다.
+![](/imgs/040622_post/fig4.png){: .align-center}
+
+Minority class의 샘플 중 majority class 샘플과 인접한, 즉 경계선에 있는 샘플들에 대해서 생성을 진행하는 것을 알 수 있다.
+
+
+***ADASYN***
+
+1. 생성할 샘플의 수를 다음과 같이 결정하게 된다. Majority class의 샘플 수 와 minority class의 샘플 수 차이에 $\beta$를 곱한 수를 선택하게 된다.
+$G=(|S_{maj}|-|S_{min}|)\times\beta$   
+$|S_{maj}|$: Majority class의 샘플 수, $|S_{min}|$: Minority class의 샘플 수, $\beta\in[0,1]$   
+2. Minority class 각각의 샘플 $x_i \in S_{min}$에 대해서 K개의 가까운 샘플을 찾고 아래와 같이 $\Gamma_i$ 값을 구한다. 
+$\Gamma_i=\frac{\Delta_i/K}{Z}, i=1,...,|S_{min}|$   
+$\Delta_i: x_i$로부터 가장 가까운 k개의 샘플 중 majority class 샘플의 수, $Z:$ Normalization 상수, $\sum\Gamma_i=1$이 되도록 설정   
+$\Gamma_i$는 각 샘플당 생성되어야 할 생성 샘플 비율이라고 보면 된다.
+3. 앞서 각 샘플당 생성되어야 할 생성 샘플 비율을 설정하였으니 각 샘플 당 생성되어야 할 샘플 수($g_i$)를 아래와 같이 계산하게 된다.   
+$g_i=\Gamma_i\times G$   
+이 후에 생성은 논문에는 설명되어 있지 않으나 아마 앞서 소개된 SMOTE를 사용할 수 있지 않을까 싶다.
+
+
+- *Borderline-SMOTE*의 경우 특정 조건에 맞는 샘플에 대해서 균일하게 데이터를 생성하게 하였다면 (주로 major, minority class가 인접해 있는 경계 부분), ADASYN은 경계 부분에서도 majority class와 더욱 더 인접해 있는 샘플에 가중치를 주어 더 많은 데이터를 생성하게 된다.
+
+#### 3.1.5 Sampling with Data Cleaning Techniques
+(작성 중...)
