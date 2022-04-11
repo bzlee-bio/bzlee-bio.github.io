@@ -312,7 +312,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
-              <ul class="toc__menu"><li><a href="#learning-from-imbalanced-data-2009">Learning from Imbalanced Data (2009)</a><ul><li><a href="#1-introduction">1. Introduction</a></li><li><a href="#2-nature-of-the-problem">2. Nature of the Problem</a></li><li><a href="#3-the-state-of-the-art-solutions-for-imbalanced-learning">3. The State-of-the-art Solutions for Imbalanced Learning</a><ul><li><a href="#31-sampling-methods-for-imbalanced-learning">3.1 Sampling Methods for Imbalanced Learning</a><ul><li><a href="#311-random-oversampling-and-undersampling">3.1.1 Random Oversampling and Undersampling</a></li><li><a href="#312-informed-undersampling">3.1.2 Informed Undersampling</a></li><li><a href="#313-synthetic-sampling-with-data-generation-smote">3.1.3 Synthetic Sampling with Data Generation (SMOTE)</a></li><li><a href="#314-adaptive-synthetic-sampling">3.1.4 Adaptive Synthetic Sampling</a></li><li><a href="#315-sampling-with-data-cleaning-techniques">3.1.5 Sampling with Data Cleaning Techniques</a></li></ul></li></ul></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#learning-from-imbalanced-data-2009">Learning from Imbalanced Data (2009)</a><ul><li><a href="#1-introduction">1. Introduction</a></li><li><a href="#2-nature-of-the-problem">2. Nature of the Problem</a></li><li><a href="#3-the-state-of-the-art-solutions-for-imbalanced-learning">3. The State-of-the-art Solutions for Imbalanced Learning</a><ul><li><a href="#31-sampling-methods-for-imbalanced-learning">3.1 Sampling Methods for Imbalanced Learning</a><ul><li><a href="#311-random-oversampling-and-undersampling">3.1.1 Random Oversampling and Undersampling</a></li><li><a href="#312-informed-undersampling">3.1.2 Informed Undersampling</a></li><li><a href="#313-synthetic-sampling-with-data-generation-smote">3.1.3 Synthetic Sampling with Data Generation (SMOTE)</a></li><li><a href="#314-adaptive-synthetic-sampling">3.1.4 Adaptive Synthetic Sampling</a></li><li><a href="#315-sampling-with-data-cleaning-techniques">3.1.5 Sampling with Data Cleaning Techniques</a></li><li><a href="#316-cluster-based-sampling-method">3.1.6 Cluster-Based Sampling Method</a></li><li><a href="#317-integration-of-sampling-and-boosting">3.1.7 Integration of Sampling and Boosting</a></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
@@ -443,6 +443,35 @@ $g_i=\Gamma_i\times G$ <br />
 </ul>
 
 <h4 id="315-sampling-with-data-cleaning-techniques">3.1.5 Sampling with Data Cleaning Techniques</h4>
+<p>이번에는 앞서 소개된 샘플링 기법을 통해 얻어진 데이터에 대해서 중복된 뎉이터를 제거하는 기법인 Tomek links 에 대해서 소개하고 있다. <br />
+Tomek links란 가장 가까우면서 각각의 샘플이 다른 클래스에 속해 있는 샘플 쌍을 의미한다. 이러한 샘플 쌍 $(x_i, x_j)$은 다음과 같이 정의가 된다.
+$(x_i, x_j), x_i \in S_{min}, x_j \in S_{maj}$
+두 샘플 간 거리는 $d(x_i, x_j)$ 로 한다.</p>
+
+<p>여기서 $(x_i, x_j)$는 아래의 조건을 만족할 때 Tomek link라 한다.</p>
+<ul>
+  <li>$d(x_i, x_k) &lt; d(x_i, x_j)$ 또는 $d(x_k, x_j) &lt; d(x_i, x_j)$를 만족하는 $x_k$가 존재하지 않는 경우
+이와같이 정의가 된 Tomek link는 둘 중 하나의 요소가 노이즈 이거나 두 요소가 경계에 있는 요소라고 생각할 수 있다. 앞서 제시된 데이터 생성 후 데이터 클리닝을 위해 Tomek links를 “cleanup” 하는 방법을 취할 수 있다. 이러한 예제는 그림으로 보면 이해가 더 쉽다.</li>
+</ul>
+
+<p><img src="/imgs/040622_post/fig5.png" alt="" class="align-center" />
+위 그림에서 (a)는 원 데이터 분포를 보여주고 있다. (b)는 SMOTE를 통해 minority class인 별 모양 데이터가 추가된 것을 볼 수 있다. 이때 majority class와 minority class 사이에 혼잡하게 섞여있는 형태를 볼 수 있다. (c) Tomek links로 확인된 데이터를 볼 수 있다. (d) Tomek links로 확인덴 데이터를 “cleanup” 한 후의 결과이다.</p>
+
+<p>위처럼 SMOTE를 진행한 후 중복(overlap) 되는 데이터가 많아진 것을 확인할 수 있다. Tomek links를 확인하여 데이터를 더 깔끔하게 만들 수 있는 것을 볼 수있다. (개인적인 생각으로는 애초에 원 데이터셋이 너무 경계가 뚜렷하지 않은 좋지 않은 예이지 않나 싶긴 하다..)</p>
+
+<h4 id="316-cluster-based-sampling-method">3.1.6 Cluster-Based Sampling Method</h4>
+<p>클러스터링 기반 샘플링 방법은 이전 방법들과는 다르게 특정 타겟에 맞추어 샘플링을 할 수 있는 기법이다. 여기서는 cluster-based oversampling (CBO) algorithm 이 소개되고 있다. <br />
+CBO 알고리즘은 K-means clustering 기법을 기반으로 한다. <br />
+각각의 class에서 K 개의 샘플을 랜덤하게 샘플링한 후 샘플된 데이터의 feature에 대해서 평균 값을 구하여 mean feature vector를 구하게 된다. 이러한 mean feature vector는 샘플링 된 데이터 클러스터의 중앙을 가리키는 벡터가 될 것이다. <br />
+선택되지 않은 샘플 중 1개에 대해서 각 cluster의 mean feature vector와의 euclidian distance를 구하게 된다. 각 class 중 distance가 가장 가까운 cluster 로 샘플을 추가하게 되고 해당 cluster의 mean feature vector를 다시 계산하게 된다. <br />
+이러한 방식으로 선택되지 않은 샘플 모두에 대해서 진행하게 된다. 이때 샘플이 가장 많은 majority class와 샘플 수가 동일하게 되도록 minority class에 대해서 oversampling 을 진행하게 된다. 아래 그림으로 내용을 확인해보자.</p>
+
+<p><img src="/imgs/040622_post/fig6.png" alt="" class="align-center" />
+(a)는 원 데이터의 분포이다. (b)는 각 class에서 K=3 개의 샘플을 샘플링한 후 mean feature vector가 가리키는 위치 (삼각형, clustering mean)을 보여주고 있으며 샘플된 포인트와 각 cluster mean의 distance를 보여주고 있다. (c)는 새로 계산되는 cluster mean을 보여주고 있다. (d)는 minority class 인 D, E에 대해 cluster-based oversampling 을 진행한 후의 모습이다. 여기서 oversampling을 하는 경우 앞서 소개된 데이터 생성 예제와 같은 방법을 사용하여 진행한다. 이러한 방법은 within-class imbalance와 between-class imbalance에 효과적이라고 한다.</p>
+
+<p>이 방법 같은 경우는 개인적으로는 효과적인 것인가에 대한 의문점이 든다..</p>
+
+<h4 id="317-integration-of-sampling-and-boosting">3.1.7 Integration of Sampling and Boosting</h4>
 <p>(작성 중…)</p>
 
         
