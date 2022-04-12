@@ -151,4 +151,11 @@ CBO 알고리즘은 K-means clustering 기법을 기반으로 한다.
 이 방법 같은 경우는 개인적으로는 효과적인 것인가에 대한 의문점이 든다.. 
 
 #### 3.1.7 Integration of Sampling and Boosting
+앞서 소개된 샘플링 기반 방법과 boosting 기반의 방법을 사용하는 다양한 연구사례가 있음. 예를들어 SMOTEBoost는 SMOTE와 Adaboost를 함께 사용하는 방법이다. 여기서 매번 boosting 시 SMOTE 방법을 통하여 새로운 데이터를 생성해 낸다. 즉, 매 boosting을 통해 학습된 분류 모델은 각기 다른 데이터를 기반으로 하고 있기 때문에 ensemble 을 통하여 더 정확한 결과를 얻을 수 있다.   
+
+
+### 3.2 Cost-Sensitive Methods for Imbalanced Learning
+앞서 소개된 샘플링 방법은 클래스 간 데이터 분포를 균일하게 맞추어주는 방향으로 진행된다. 지금부터 소개 될 cost-sensitive learning은 특정 데이터의 오분류에 대한 내용을 반영한 cost 함수를 사용하는 방법이다.
+
+#### 3.2.1 Cost-Sensitive Learning Framework
 (작성 중...)

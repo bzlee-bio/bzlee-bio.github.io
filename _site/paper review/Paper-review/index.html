@@ -312,7 +312,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
-              <ul class="toc__menu"><li><a href="#learning-from-imbalanced-data-2009">Learning from Imbalanced Data (2009)</a><ul><li><a href="#1-introduction">1. Introduction</a></li><li><a href="#2-nature-of-the-problem">2. Nature of the Problem</a></li><li><a href="#3-the-state-of-the-art-solutions-for-imbalanced-learning">3. The State-of-the-art Solutions for Imbalanced Learning</a><ul><li><a href="#31-sampling-methods-for-imbalanced-learning">3.1 Sampling Methods for Imbalanced Learning</a><ul><li><a href="#311-random-oversampling-and-undersampling">3.1.1 Random Oversampling and Undersampling</a></li><li><a href="#312-informed-undersampling">3.1.2 Informed Undersampling</a></li><li><a href="#313-synthetic-sampling-with-data-generation-smote">3.1.3 Synthetic Sampling with Data Generation (SMOTE)</a></li><li><a href="#314-adaptive-synthetic-sampling">3.1.4 Adaptive Synthetic Sampling</a></li><li><a href="#315-sampling-with-data-cleaning-techniques">3.1.5 Sampling with Data Cleaning Techniques</a></li><li><a href="#316-cluster-based-sampling-method">3.1.6 Cluster-Based Sampling Method</a></li><li><a href="#317-integration-of-sampling-and-boosting">3.1.7 Integration of Sampling and Boosting</a></li></ul></li></ul></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#learning-from-imbalanced-data-2009">Learning from Imbalanced Data (2009)</a><ul><li><a href="#1-introduction">1. Introduction</a></li><li><a href="#2-nature-of-the-problem">2. Nature of the Problem</a></li><li><a href="#3-the-state-of-the-art-solutions-for-imbalanced-learning">3. The State-of-the-art Solutions for Imbalanced Learning</a><ul><li><a href="#31-sampling-methods-for-imbalanced-learning">3.1 Sampling Methods for Imbalanced Learning</a><ul><li><a href="#311-random-oversampling-and-undersampling">3.1.1 Random Oversampling and Undersampling</a></li><li><a href="#312-informed-undersampling">3.1.2 Informed Undersampling</a></li><li><a href="#313-synthetic-sampling-with-data-generation-smote">3.1.3 Synthetic Sampling with Data Generation (SMOTE)</a></li><li><a href="#314-adaptive-synthetic-sampling">3.1.4 Adaptive Synthetic Sampling</a></li><li><a href="#315-sampling-with-data-cleaning-techniques">3.1.5 Sampling with Data Cleaning Techniques</a></li><li><a href="#316-cluster-based-sampling-method">3.1.6 Cluster-Based Sampling Method</a></li><li><a href="#317-integration-of-sampling-and-boosting">3.1.7 Integration of Sampling and Boosting</a></li></ul></li><li><a href="#32-cost-sensitive-methods-for-imbalanced-learning">3.2 Cost-Sensitive Methods for Imbalanced Learning</a><ul><li><a href="#321-cost-sensitive-learning-framework">3.2.1 Cost-Sensitive Learning Framework</a></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
@@ -472,6 +472,12 @@ CBO 알고리즘은 K-means clustering 기법을 기반으로 한다. <br />
 <p>이 방법 같은 경우는 개인적으로는 효과적인 것인가에 대한 의문점이 든다..</p>
 
 <h4 id="317-integration-of-sampling-and-boosting">3.1.7 Integration of Sampling and Boosting</h4>
+<p>앞서 소개된 샘플링 기반 방법과 boosting 기반의 방법을 사용하는 다양한 연구사례가 있음. 예를들어 SMOTEBoost는 SMOTE와 Adaboost를 함께 사용하는 방법이다. 여기서 매번 boosting 시 SMOTE 방법을 통하여 새로운 데이터를 생성해 낸다. 즉, 매 boosting을 통해 학습된 분류 모델은 각기 다른 데이터를 기반으로 하고 있기 때문에 ensemble 을 통하여 더 정확한 결과를 얻을 수 있다.</p>
+
+<h3 id="32-cost-sensitive-methods-for-imbalanced-learning">3.2 Cost-Sensitive Methods for Imbalanced Learning</h3>
+<p>앞서 소개된 샘플링 방법은 클래스 간 데이터 분포를 균일하게 맞추어주는 방향으로 진행된다. 지금부터 소개 될 cost-sensitive learning은 특정 데이터의 오분류에 대한 내용을 반영한 cost 함수를 사용하는 방법이다.</p>
+
+<h4 id="321-cost-sensitive-learning-framework">3.2.1 Cost-Sensitive Learning Framework</h4>
 <p>(작성 중…)</p>
 
         
