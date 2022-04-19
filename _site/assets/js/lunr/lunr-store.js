@@ -4,4 +4,10 @@ var store = [{
         "tags": ["Data Imbalance","Imbalance Learning"],
         "url": "/paper%20review/Paper-review/",
         "teaser": null
+      },{
+        "title": "Algorithm study - Trie",
+        "excerpt":"모두연에서 진행하는 풀잎스쿨 중 코딩습관 기르기를 신청하게 되었다. 앞으로 알고리즘 문제를 풀다가 잘 모르는 개념을 정리해보려고 한다… 이번주에는 Trie라는 새로운 개념을 만나게 되어 정리하게 되었다. Trie Trie는 k-ary search tree의 한 종류인 tree 데이터 구조를 말한다. 무지해서 필요한 background 일단 search tree에 대해서 간단히 알아보면, tree를 구성할 때 각각의 node의...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Trie"],
+        "url": "/algorithm/Coding-study_trie/",
+        "teaser": null
       }]

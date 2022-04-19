@@ -1,0 +1,520 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Algorithm study - Trie - BZLEE-Bio</title>
+<meta name="description" content="모두연에서 진행하는 풀잎스쿨 중 코딩습관 기르기를 신청하게 되었다. 앞으로 알고리즘 문제를 풀다가 잘 모르는 개념을 정리해보려고 한다…  이번주에는 Trie라는 새로운 개념을 만나게 되어 정리하게 되었다.">
+
+
+  <meta name="author" content="Byungjo Lee">
+  
+  <meta property="article:author" content="Byungjo Lee">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_KR">
+<meta property="og:site_name" content="BZLEE-Bio">
+<meta property="og:title" content="Algorithm study - Trie">
+<meta property="og:url" content="http://localhost:4000/algorithm/Coding-study_trie/">
+
+
+  <meta property="og:description" content="모두연에서 진행하는 풀잎스쿨 중 코딩습관 기르기를 신청하게 되었다. 앞으로 알고리즘 문제를 풀다가 잘 모르는 개념을 정리해보려고 한다…  이번주에는 Trie라는 새로운 개념을 만나게 되어 정리하게 되었다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-04-18T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/algorithm/Coding-study_trie/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Byungjo Lee",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Special
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/imgs/main.jpeg" alt="Byungjo Lee" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">Byungjo Lee</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Ph.D Candidate<br /> blee.inf at gmail.com</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Algorithm study - Trie">
+    <meta itemprop="description" content="모두연에서 진행하는 풀잎스쿨 중 코딩습관 기르기를 신청하게 되었다. 앞으로 알고리즘 문제를 풀다가 잘 모르는 개념을 정리해보려고 한다… 이번주에는 Trie라는 새로운 개념을 만나게 되어 정리하게 되었다.">
+    <meta itemprop="datePublished" content="2022-04-18T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/algorithm/Coding-study_trie/" class="u-url" itemprop="url">Algorithm study - Trie
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-04-18T00:00:00+09:00">April 18, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
+              <ul class="toc__menu"><li><a href="#trie">Trie</a><ul><li><a href="#무지해서-필요한-background">무지해서 필요한 background</a></li><li><a href="#operations">Operations</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>모두연에서 진행하는 풀잎스쿨 중 코딩습관 기르기를 신청하게 되었다. 앞으로 알고리즘 문제를 풀다가 잘 모르는 개념을 정리해보려고 한다… <br />
+이번주에는 Trie라는 새로운 개념을 만나게 되어 정리하게 되었다.</p>
+
+<h1 id="trie">Trie</h1>
+<p>Trie는 k-ary search tree의 한 종류인 tree 데이터 구조를 말한다.</p>
+
+<h2 id="무지해서-필요한-background">무지해서 필요한 background</h2>
+<p>일단 <em>search tree</em>에 대해서 간단히 알아보면, 
+tree를 구성할 때 각각의 node의 key보다 작은 key를 가지는 node를 subtree의 왼쪽에, 반대로 더 큰 key를 가지는 경우 subtree의 오른쪽에 구성한다고 한다. 아마 search하는데 효율을 위해 이처럼 구성하는 것 같다. (관련 내용은 추후에 다시 정리를…) <br />
+그리고 <em>k-ary tree</em>는 각각의 node가 최대 k개의 children을 가지는 것을 의미한다. 즉, binary tree는 k-ary tree 중 $k=2$인 special case라고 정의할 수 있다고 한다.</p>
+
+<p>즉, <em>k-ary search tree</em>인 trie는 위에 제시된 두개의 큰 특징을 가지고 있는 tree인 것 같다.. <br />
+<em>Trie</em>는 string 타입의 데이터를 이용하여 구성되는 경우가 많으며, 각 node가 string을 값으로 가지고 있는 것이 아니라 character를 가지고 있다. <br />
+아직 정확한 용어와 개념이 있질 않아서 더 정리를 할 수 가 없다…</p>
+
+<p><img src="/imgs/041822_post/Trie_example.png" alt="Ref; Wikipedia" class="align-center" />
+위 이미지가 Trie의 예시이다. (참고: https://en.wikipedia.org/wiki/Trie)</p>
+
+<h2 id="operations">Operations</h2>
+<p>Tries를 이용하여 string key를 이용한 insertion, deletion, lookup을 수행할 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#algorithm" class="page__taxonomy-item p-category" rel="tag">Algorithm</a><span class="sep">, </span>
+    
+      <a href="/tags/#trie" class="page__taxonomy-item p-category" rel="tag">Trie</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#algorithm" class="page__taxonomy-item p-category" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2022-04-18T00:00:00+09:00">April 18, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Algorithm+study+-+Trie%20http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2FCoding-study_trie%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2FCoding-study_trie%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithm%2FCoding-study_trie%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/paper%20review/Paper-review/" class="pagination--pager" title="Paper review - Learning from Imbalanced Data
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">You May Also Enjoy</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/paper%20review/Paper-review/" rel="permalink">Paper review - Learning from Imbalanced Data
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2022-04-05T00:00:00+09:00">April 5, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Learning from Imbalanced Data (2009)
+
+  해당 포스팅의 이미지는 모두 원 논문 본문에서 발췌하였습니다.
+논문 링크
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="http://github.com/bzlee-bio" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Byungjo Lee. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
