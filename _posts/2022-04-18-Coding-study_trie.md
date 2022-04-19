@@ -32,3 +32,5 @@ tree를 구성할 때 각각의 node의 key보다 작은 key를 가지는 node�
 
 ## Operations
 Tries를 이용하여 string key를 이용한 insertion, deletion, lookup을 수행할 수 있다.   
+
+(정리중)

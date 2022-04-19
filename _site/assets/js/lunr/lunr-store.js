@@ -10,4 +10,10 @@ var store = [{
         "tags": ["Algorithm","Trie"],
         "url": "/algorithm/Coding-study_trie/",
         "teaser": null
+      },{
+        "title": "Algorithm study - Floyd's cycle-finding algorithm",
+        "excerpt":"Floyd’s Tortoise and Hare Floyd’s Tortoise and Hare은 linked-list로 연결되어 있는 데이터 구조에서 사이클이 시작되는 부분을 효율적으로 찾게 해주는 알고리즘이다. 무지해서 필요한 background 일단 이를 이해하기 위해서는 모듈러에 대해서 잠시 알아보자. 어떤 양의 정수 n과 a가 주어졌을 때, 아래와 같이 몫 q와 나머지 r을 얻을 수 있다. $a = qn...","categories": ["Algorithm"],
+        "tags": ["Algorithm","Floyd","Linked-list","Cycle-finding"],
+        "url": "/algorithm/Coding-study_floyd_algorithm/",
+        "teaser": null
       }]
