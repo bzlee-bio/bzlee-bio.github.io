@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-19T23:26:10+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">BZLEE-Bio</title><subtitle>Nothing special</subtitle><author><name>Byungjo Lee</name></author><entry><title type="html">Algorithm study - Floyd’s cycle-finding algorithm</title><link href="http://localhost:4000/algorithm/Coding-study_floyd_algorithm/" rel="alternate" type="text/html" title="Algorithm study - Floyd’s cycle-finding algorithm" /><published>2022-04-19T00:00:00+09:00</published><updated>2022-04-19T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/Coding-study_floyd_algorithm</id><content type="html" xml:base="http://localhost:4000/algorithm/Coding-study_floyd_algorithm/">&lt;h1 id=&quot;floyds-tortoise-and-hare&quot;&gt;Floyd’s Tortoise and Hare&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-25T14:57:23+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">BZLEE-Bio</title><subtitle>Nothing special</subtitle><author><name>Byungjo Lee</name></author><entry><title type="html">Algorithm study - Floyd’s cycle-finding algorithm</title><link href="http://localhost:4000/algorithm/Coding-study_floyd_algorithm/" rel="alternate" type="text/html" title="Algorithm study - Floyd’s cycle-finding algorithm" /><published>2022-04-19T00:00:00+09:00</published><updated>2022-04-19T00:00:00+09:00</updated><id>http://localhost:4000/algorithm/Coding-study_floyd_algorithm</id><content type="html" xml:base="http://localhost:4000/algorithm/Coding-study_floyd_algorithm/">&lt;h1 id=&quot;floyds-tortoise-and-hare&quot;&gt;Floyd’s Tortoise and Hare&lt;/h1&gt;
 &lt;p&gt;Floyd’s Tortoise and Hare은 linked-list로 연결되어 있는 데이터 구조에서 사이클이 시작되는 부분을 효율적으로 찾게 해주는 알고리즘이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;무지해서-필요한-background&quot;&gt;무지해서 필요한 background&lt;/h2&gt;
@@ -228,4 +228,29 @@ CBO 알고리즘은 K-means clustering 기법을 기반으로 한다. &lt;br /&g
 &lt;p&gt;앞서 소개된 샘플링 방법은 클래스 간 데이터 분포를 균일하게 맞추어주는 방향으로 진행된다. 지금부터 소개 될 cost-sensitive learning은 특정 데이터의 오분류에 대한 내용을 반영한 cost 함수를 사용하는 방법이다.&lt;/p&gt;
 
 &lt;h4 id=&quot;321-cost-sensitive-learning-framework&quot;&gt;3.2.1 Cost-Sensitive Learning Framework&lt;/h4&gt;
-&lt;p&gt;(작성 중…)&lt;/p&gt;</content><author><name>Byungjo Lee</name></author><category term="Paper review" /><category term="Data Imbalance" /><category term="Imbalance Learning" /><summary type="html">Learning from Imbalanced Data (2009) 해당 포스팅의 이미지는 모두 원 논문 본문에서 발췌하였습니다. 논문 링크</summary></entry></feed>
+&lt;p&gt;Cost-sensitive learning 방법을 이해하기 위해서 필요한 cost matrix에 대해서 알아보자. &lt;br /&gt;
+Cost matrix는 예측 결과에서 잘못된 분류에 의한 페널티를 수치적으로 표현한 것이라고 생각할 수 있다. Cost matrix의 요소는 아래와 같이 정의할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$C(Min, Maj)$: Majority class를 minority class로 잘못 분류한 것에 대한 cost,&lt;/li&gt;
+  &lt;li&gt;$C(Min, Maj)$: Minority class를 majority class로 잘못 분류한 것에 대한 cost.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각 class에 대한 cost를 정의할 수 있다면, 모델 학습 시 모든 cost를 감소시키는 방향으로 학습을 진행하게 되는 것이 cost-sensitive learning 이다. (앞서 나온 kNN 등의 방법과는 다르게 cost 기반 학습방법이 해당되는 것 같다.)&lt;/p&gt;
+
+&lt;p&gt;앞서 나온 개념을 binary class가 아닌 multiclass 개념으로 확장시키면 아래와 같은 테이블을 얻을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/040622_post/fig7.png&quot; alt=&quot;&quot; class=&quot;align-center&quot; /&gt; &lt;br /&gt;
+여기서 우리는 입력된 데이터 $\textbf{x}$에 대해 모델로 부터 예측된 predicted class $i$ 에 대한 conditional risk를 다음과 같이 정의할 수 있다. &lt;br /&gt;
+$R(i|\textbf{x})=\sum_{j}P(j|\textbf{x})C(i,j), P(j|\textbf{x}):$ 입력 데이터 $\textbf{x}$ 중 Class $j$의 비율&lt;/p&gt;
+
+&lt;p&gt;지금까지는 cost matrix에 대해서 알아보았고, 지금부터 cost-sensitive learning에 대해서 알아보자. 크게 3가지로 나눌 수 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;데이터공간 상에서 가장 넓은 학습 분포를 가지도록 하는 cost-sensitive bootstrap sampling 접근방법&lt;/li&gt;
+  &lt;li&gt;앙상블 기법을 활용한 cost-minimizing 테크닉&lt;/li&gt;
+  &lt;li&gt;Cost-sensitive function을 직접 모델 학습에 적용하는 경우&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;위 세가지 기법에 대해서 방법론을 지금부터 살펴보자.&lt;/p&gt;
+
+&lt;h4 id=&quot;322-cost-sensitive-dataspace-weightning-with-adaptive-boosting&quot;&gt;3.2.2 Cost-Sensitive Dataspace Weightning with Adaptive Boosting&lt;/h4&gt;
+&lt;p&gt;(작성중…)&lt;/p&gt;</content><author><name>Byungjo Lee</name></author><category term="Paper review" /><category term="Data Imbalance" /><category term="Imbalance Learning" /><summary type="html">Learning from Imbalanced Data (2009) 해당 포스팅의 이미지는 모두 원 논문 본문에서 발췌하였습니다. 논문 링크</summary></entry></feed>

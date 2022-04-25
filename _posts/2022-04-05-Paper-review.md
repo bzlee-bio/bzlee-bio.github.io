@@ -158,4 +158,25 @@ CBO 알고리즘은 K-means clustering 기법을 기반으로 한다.
 앞서 소개된 샘플링 방법은 클래스 간 데이터 분포를 균일하게 맞추어주는 방향으로 진행된다. 지금부터 소개 될 cost-sensitive learning은 특정 데이터의 오분류에 대한 내용을 반영한 cost 함수를 사용하는 방법이다.
 
 #### 3.2.1 Cost-Sensitive Learning Framework
-(작성 중...)
+Cost-sensitive learning 방법을 이해하기 위해서 필요한 cost matrix에 대해서 알아보자.   
+Cost matrix는 예측 결과에서 잘못된 분류에 의한 페널티를 수치적으로 표현한 것이라고 생각할 수 있다. Cost matrix의 요소는 아래와 같이 정의할 수 있다.   
+- $C(Min, Maj)$: Majority class를 minority class로 잘못 분류한 것에 대한 cost,   
+- $C(Min, Maj)$: Minority class를 majority class로 잘못 분류한 것에 대한 cost.   
+
+각 class에 대한 cost를 정의할 수 있다면, 모델 학습 시 모든 cost를 감소시키는 방향으로 학습을 진행하게 되는 것이 cost-sensitive learning 이다. (앞서 나온 kNN 등의 방법과는 다르게 cost 기반 학습방법이 해당되는 것 같다.)   
+
+앞서 나온 개념을 binary class가 아닌 multiclass 개념으로 확장시키면 아래와 같은 테이블을 얻을 수 있다.
+
+![](/imgs/040622_post/fig7.png){: .align-center}   
+여기서 우리는 입력된 데이터 $\textbf{x}$에 대해 모델로 부터 예측된 predicted class $i$ 에 대한 conditional risk를 다음과 같이 정의할 수 있다.   
+$R(i|\textbf{x})=\sum_{j}P(j|\textbf{x})C(i,j), P(j|\textbf{x}):$ 입력 데이터 $\textbf{x}$ 중 Class $j$의 비율   
+
+지금까지는 cost matrix에 대해서 알아보았고, 지금부터 cost-sensitive learning에 대해서 알아보자. 크게 3가지로 나눌 수 있다.
+1. 데이터공간 상에서 가장 넓은 학습 분포를 가지도록 하는 cost-sensitive bootstrap sampling 접근방법
+2. 앙상블 기법을 활용한 cost-minimizing 테크닉
+3. Cost-sensitive function을 직접 모델 학습에 적용하는 경우
+
+위 세가지 기법에 대해서 방법론을 지금부터 살펴보자.
+
+#### 3.2.2 Cost-Sensitive Dataspace Weightning with Adaptive Boosting
+(작성중...)
